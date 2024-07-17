@@ -438,7 +438,7 @@ $program_details = get_field("program_details");
 
     <section class="md:px-44 md:py-10 p-5">
         <?php $cohort_statistics = get_field("cohort_statistics"); ?>
-        <h2 class="font-tnr text-center md:mb-10 mb-5"><?php echo $cohort_statistics["section_title"] ?></h2>
+        <h2 class="font-tnr md:text-center md:mb-10 mb-5"><?php echo $cohort_statistics["section_title"] ?></h2>
         <div class="flex md:flex-row flex-col justify-between md:gap-10 gap-5">
             <div class="basis-[40%]">
                 <h3 class="mb-3 text-center"><?php echo $cohort_statistics["work_experience_chart"]["heading"] ?></h3>
