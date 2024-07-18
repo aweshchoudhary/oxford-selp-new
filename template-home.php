@@ -35,7 +35,7 @@ get_header();
                     <?php if (!empty($hero_sec["review_my_application"])) : ?>
                         <a aria-label="goto eligibility page" href="<?php echo esc_url($hero_sec["review_my_application"]["url"]); ?>" class="cbtn-outline"><?php echo wp_kses_post($hero_sec["review_my_application"]["title"]); ?></a>
                     <?php endif; ?>
-                    <button name="open download brochure form" aria-label="open download brochure form" onclick="download_brochure.showModal();" class="cbtn-outline">Download brochure</button>
+                    <button name="open download brochure form" aria-label="open download brochure form" onclick="download_brochure.showModal();" class="cbtn-outline"><?php echo esc_url($hero_sec["download_brochure"]["url"]); ?>"</button>
                 </div>
 
                 <hr class="border-primary border" />
