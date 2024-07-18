@@ -1,9 +1,6 @@
 <?php
 // Template Name: Home Page
-
 get_header();
-
-
 ?>
 <article>
     <?php
@@ -11,15 +8,18 @@ get_header();
     if ($hero_sec) :
     ?>
         <section>
+            <pre>
+                <?php print_r($hero_sec) ?>
+            </pre>
             <figure class="w-full md:h-full h-[400px] md:p-0 p-5">
                 <?php if (!empty($hero_sec["hero_image"])) :
                     $image = $hero_sec["hero_image"];
-                    echo wp_get_attachment_image($image["id"], "large", false, array(
+                    echo wp_get_attachment_image($image["ID"], "large", false, array(
                         "loading" => "eager",
                         "class" => "image-cover",
                     ));
                 ?>
-                    <figcaption class="sr-only"><?php echo esc_html($image["alt"]); ?></figcaption>
+                    <figcaption class="sr-only"><?php echo wp_kses_post($image["alt"]); ?></figcaption>
                 <?php endif; ?>
             </figure>
 
@@ -30,12 +30,14 @@ get_header();
 
                 <div class="md:flex-row flex-col flex items-center gap-3 justify-center md:mb-10 mb-5">
                     <?php if (!empty($hero_sec["apply_now"])) : ?>
-                        <a aria-label="goto apply now page" href="<?php echo esc_url($hero_sec["apply_now"]["url"]); ?>" class="cbtn-primary"><?php echo wp_kses_post($hero_sec["apply_now"]["title"]); ?></a>
+                        <a aria-label="Go to apply now page" href="<?php echo esc_url($hero_sec["apply_now"]["url"]); ?>" class="cbtn-primary"><?php echo wp_kses_post($hero_sec["apply_now"]["title"]); ?></a>
                     <?php endif; ?>
                     <?php if (!empty($hero_sec["review_my_application"])) : ?>
-                        <a aria-label="goto eligibility page" href="<?php echo esc_url($hero_sec["review_my_application"]["url"]); ?>" class="cbtn-outline"><?php echo wp_kses_post($hero_sec["review_my_application"]["title"]); ?></a>
+                        <a aria-label="Go to eligibility page" href="<?php echo esc_url($hero_sec["review_my_application"]["url"]); ?>" class="cbtn-outline"><?php echo wp_kses_post($hero_sec["review_my_application"]["title"]); ?></a>
                     <?php endif; ?>
-                    <button name="open download brochure form" aria-label="open download brochure form" onclick="download_brochure.showModal();" class="cbtn-outline"><?php echo esc_url($hero_sec["download_brochure"]["url"]); ?>"</button>
+                    <?php if (!empty($hero_sec["download_brochure"])) : ?>
+                        <button name="open download brochure form" aria-label="Open download brochure form" onclick="download_brochure.showModal();" class="cbtn-outline"><?php echo wp_kses_post($hero_sec["download_brochure"]["title"]); ?></button>
+                    <?php endif; ?>
                 </div>
 
                 <hr class="border-primary border" />
@@ -58,11 +60,10 @@ get_header();
                 <?php echo do_shortcode('[wpforms id="512"]'); ?>
             </div>
             <form method="dialog" class="modal-backdrop">
-                <button>close</button>
+                <button>Close</button>
             </form>
         </dialog>
     <?php endif; ?>
-
 
     <?php
     $program_details = get_field("program_details");
@@ -74,23 +75,21 @@ get_header();
                     <li class="flex items-center md:basis-1/4 flex-1 basis-full gap-5">
                         <figure class="w-[60px] h-full">
                             <?php
-                            $image = $item["icon"];
-                            echo wp_get_attachment_image(
-                                $image["id"],
-                                "large",
-                                false,
-                                array("loading" => "lazy", "class" => "image-cover")
-                            );
+                            $icon = $item["icon"];
+                            echo wp_get_attachment_image($icon["ID"], "large", false, array(
+                                "loading" => "lazy",
+                                "class" => "image-cover",
+                            ));
                             ?>
-                            <figcaption class="sr-only"><?php echo esc_html($image["alt"]); ?></figcaption>
+                            <figcaption class="sr-only"><?php echo wp_kses_post($icon["alt"]); ?></figcaption>
                         </figure>
 
                         <div>
-                            <h3 class="md:text-2xl text-xl"><?php echo esc_html($item["subtitle"]); ?></h3>
-                            <p class="mb-0 md:text-2xl text-lg font-bold"><?php echo esc_html($item["title"]); ?></p>
+                            <h3 class="md:text-2xl text-xl"><?php echo wp_kses_post($item["subtitle"]); ?></h3>
+                            <p class="mb-0 md:text-2xl text-lg font-bold"><?php echo wp_kses_post($item["title"]); ?></p>
 
                             <?php if (!empty($item["modal"]["modal_name"])) : ?>
-                                <button name="show more details" aria-label="show more details" class="mt-1 block underline" onclick="<?php echo esc_attr($item["modal"]["modal_name"]); ?>.showModal()"><?php echo esc_html($item["modal"]["title"]); ?></button>
+                                <button name="show more details" aria-label="Show more details" class="mt-1 block underline" onclick="<?php echo esc_attr($item["modal"]["modal_name"]); ?>.showModal()"><?php echo wp_kses_post($item["modal"]["title"]); ?></button>
                             <?php endif; ?>
                         </div>
                     </li>
@@ -103,7 +102,7 @@ get_header();
                 <?php echo do_shortcode('[wpforms id="235" title="true"]'); ?>
             </div>
             <form method="dialog" class="modal-backdrop">
-                <button>close</button>
+                <button>Close</button>
             </form>
         </dialog>
     <?php endif; ?>
@@ -223,7 +222,253 @@ get_header();
         </section>
     <?php endif; ?>
 
-    <!-- Repeat similar checks and structures for other sections -->
+    <?php $programme_outcome = get_field("programme_outcome"); ?>
+    <?php if ($programme_outcome) : ?>
+        <section>
+            <div class="md:px-44 md:py-10 p-5">
+                <h2 class="font-tnr">
+                    <?php echo wp_kses_post($programme_outcome["section_title"]); ?>
+                </h2>
+            </div>
+            <figure class="md:h-auto h-[250px] object-cover">
+                <?php echo wp_get_attachment_image($programme_outcome["main_image"], "large", false, [
+                    "loading" => "lazy",
+                    "class" => "image-cover",
+                ]); ?>
+                <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($programme_outcome["main_image"])); ?></figcaption>
+            </figure>
+            <div class="md:px-44 md:py-10 p-5 space-y-5">
+                <?php echo wp_kses_post($programme_outcome["description"]); ?>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <?php $oxford_business_alumni_network = get_field("oxford_business_alumni_network"); ?>
+    <?php if ($oxford_business_alumni_network) : ?>
+        <section class="bg-primary text-white">
+            <div class="md:px-44 md:py-10 p-5 space-y-5">
+                <h2 class="font-tnr">
+                    <?php echo wp_kses_post($oxford_business_alumni_network["section_title"]); ?>
+                </h2>
+            </div>
+            <figure class="md:h-auto h-[250px]">
+                <?php echo wp_get_attachment_image($oxford_business_alumni_network["main_image"], "large", false, [
+                    "loading" => "lazy",
+                    "class" => "image-cover",
+                ]); ?>
+                <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($oxford_business_alumni_network["main_image"])); ?></figcaption>
+            </figure>
+            <div class="md:px-44 md:py-10 p-5 space-y-5">
+                <?php echo wp_kses_post($oxford_business_alumni_network["description"]); ?>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <?php $faculty = get_field("learn_from_world-class_faculty"); ?>
+    <?php if ($faculty) : ?>
+        <section class="md:py-10 py-5 md:pb-0 pb-0">
+            <div class="md:px-44 md:mb-10 mb-5 px-5">
+                <h2 class="font-tnr">
+                    <?php echo wp_kses_post($faculty["section_title"]); ?>
+                </h2>
+            </div>
+            <div class="relative">
+                <button name="slide previous" aria-label="slide previous" class="faculty-slick-prev md:left-32 left-2 slick-btn">
+                    <svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                        <g transform="translate(608 0) scale(-1 1)">
+                            <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
+                        </g>
+                    </svg>
+                </button>
+                <button name="slide next" aria-label="slide next" class="faculty-slick-next md:right-32 right-2 slick-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                        <g transform="translate(608 0) scale(-1 1)">
+                            <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
+                        </g>
+                    </svg>
+                </button>
+
+                <div class="slick-slider-faculty md:px-44 px-5 relative z-0">
+                    <?php foreach ($faculty["slider"] as $item) : ?>
+                        <div>
+                            <div class="p-6 text-center h-full">
+                                <figure onclick="<?php echo str_replace(' ', '_', $item["title"]); ?>.showModal()" class="aspect-square w-full overflow-hidden group cursor-pointer">
+                                    <?php $image_id = $item["profile_image"]; ?>
+                                    <?php echo wp_get_attachment_image($image_id, "medium", false, array(
+                                        "loading" => "lazy",
+                                        "class" => "image-cover",
+                                    )); ?>
+                                    <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($image_id)); ?></figcaption>
+                                </figure>
+                                <p class="md:text-xl text-lg font-semibold mt-3 mb-0"><?php echo wp_kses_post($item["title"]); ?></p>
+                                <p class="mb-2 text-left"><?php echo wp_kses_post($item["subtitle"]); ?></p>
+                            </div>
+                            <dialog id="<?php echo str_replace(' ', '_', $item["title"]); ?>" class="modal">
+                                <div style="border-radius: 0 !important;" class="modal-box flex gap-10 md:flex-row flex-col rounded-none md:p-10 p-5 md:max-w-[60%]">
+                                    <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
+                                        <?php echo wp_get_attachment_image($image_id, "medium", false, array(
+                                            "loading" => "lazy",
+                                            "class" => "image-cover",
+                                        )); ?>
+                                        <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($image_id)); ?></figcaption>
+                                    </figure>
+                                    <div>
+                                        <h3><?php echo wp_kses_post($item["title"]); ?></h3>
+                                        <h4 class="mb-4"><?php echo wp_kses_post($item["subtitle"]); ?></h4>
+                                        <div><?php echo wp_kses_post($item["read_more_description"]); ?></div>
+                                    </div>
+                                </div>
+                                <form method="dialog" class="modal-backdrop">
+                                    <button>close</button>
+                                </form>
+                            </dialog>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <?php $experts = get_field("global_industry_experts"); ?>
+    <?php if (!is_null($experts)) { ?>
+        <section class="md:py-10 py-5">
+            <div class="md:px-44 md:mb-10 mb-5 px-5">
+                <h2 class="font-tnr">
+                    <?php echo $experts["section_title"] ?>
+                </h2>
+            </div>
+            <div class="relative">
+
+                <button name="slide previous" aria-label="slide previous" class="global-experts-slick-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                        <g transform="translate(608 0) scale(-1 1)">
+                            <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
+                        </g>
+                    </svg></button>
+
+                <button name="slide next" aria-label="slide next" class="global-experts-slick-next md:right-32 right-2 slick-btn"><svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                        <g transform="translate(608 0) scale(-1 1)">
+                            <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
+                        </g>
+                    </svg></button>
+
+                <div class="slick-slider-global-experts h-full md:px-44 px-5 relative z-0">
+                    <?php foreach ($experts["slider"] as $item) { ?>
+                        <div>
+                            <div class="p-6 text-center h-full">
+                                <figure onclick="<?php echo str_replace(' ', '_', $item["title"]) ?>.showModal()" class="aspect-square w-full overflow-hidden group cursor-pointer">
+                                    <?php $image_id = $item["profile_image"]; ?>
+
+                                    <?php echo wp_get_attachment_image($image_id, "medium", false, array(
+                                        "loading" => "lazy",
+                                        "class" => "image-cover",
+                                    )); ?>
+
+                                    <figcaption class="sr-only"><?php echo wp_get_attachment_caption($image_id); ?></figcaption>
+                                </figure>
+                                <p class="md:text-xl text-lg font-semibold mt-3 mb-0"><?php echo $item["title"] ?></p>
+                                <p class="mb-2 text-left"><?php echo $item["subtitle"] ?></p>
+                            </div>
+                            <dialog id="<?php echo str_replace(' ', '_', $item["title"]) ?>" class="modal">
+                                <div style="border-radius: 0 !important;" class="modal-box flex gap-10 md:flex-row flex-col rounded-none md:p-10 p-5 md:max-w-[60%]">
+                                    <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
+                                        <?php echo wp_get_attachment_image($image_id, "medium", false, array(
+                                            "loading" => "lazy",
+                                            "class" => "image-cover",
+                                        )); ?>
+                                        <figcaption class="sr-only"><?php echo wp_get_attachment_caption($image_id); ?></figcaption>
+                                    </figure>
+
+                                    <div>
+                                        <h3>
+                                            <?php echo $item["title"] ?>
+                                        </h3>
+                                        <h4 class="mb-4">
+                                            <?php echo $item["subtitle"] ?>
+                                        </h4>
+                                        <div>
+                                            <?php echo $item["read_more_description"] ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form method="dialog" class="modal-backdrop">
+                                    <button>close</button>
+                                </form>
+                            </dialog>
+                        </div>
+                    <?php } ?>
+                    <?php if (count($experts["slider"]) < 4) { ?>
+                        <?php foreach ($experts["slider"] as $item) { ?>
+                            <div>
+                                <div class="p-6 text-center h-full">
+                                    <figure onclick="<?php echo str_replace(' ', '_', $item["title"]) ?>.showModal()" class="aspect-square w-full overflow-hidden group cursor-pointer">
+                                        <?php $image_id = $item["profile_image"]; ?>
+
+                                        <?php echo wp_get_attachment_image($image_id, "medium", false, array(
+                                            "loading" => "lazy",
+                                            "class" => "image-cover",
+                                        )); ?>
+
+                                        <figcaption class="sr-only"><?php echo wp_get_attachment_caption($image_id); ?></figcaption>
+                                    </figure>
+                                    <p class="md:text-xl text-lg font-semibold mt-3 mb-0"><?php echo $item["title"] ?></p>
+                                    <p class="mb-2 text-left"><?php echo $item["subtitle"] ?></p>
+                                </div>
+                                <dialog id="<?php echo str_replace(' ', '_', $item["title"]) ?>" class="modal">
+                                    <div style="border-radius: 0 !important;" class="modal-box flex gap-10 md:flex-row flex-col rounded-none md:p-10 p-5 md:max-w-[60%]">
+                                        <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
+                                            <?php echo wp_get_attachment_image($image_id, "medium", false, array(
+                                                "loading" => "lazy",
+                                                "class" => "image-cover",
+                                            )); ?>
+                                            <figcaption class="sr-only"><?php echo wp_get_attachment_caption($image_id); ?></figcaption>
+                                        </figure>
+
+                                        <div>
+                                            <h3>
+                                                <?php echo $item["title"] ?>
+                                            </h3>
+                                            <h4 class="mb-4">
+                                                <?php echo $item["subtitle"] ?>
+                                            </h4>
+                                            <div>
+                                                <?php echo $item["read_more_description"] ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form method="dialog" class="modal-backdrop">
+                                        <button>close</button>
+                                    </form>
+                                </dialog>
+                            </div>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
+            </div>
+        </section>
+    <?php } ?>
+
+    <?php $certificate = get_field("certificate"); ?>
+    <?php if (!is_null($certificate)) { ?>
+        <section class="md:py-10 p-5 md:px-44">
+            <hr class="border-primary md:mb-10 mb-5 border-2">
+            <div>
+                <h2 class="md:mb-10 mb-5 font-tnr"> <?php echo $certificate["section_title"] ?></h2>
+                <?php echo $certificate["upper_description"] ?>
+
+                <figure class="border border-primary">
+                    <?php echo wp_get_attachment_image($certificate["certificate_image"], "large", false, [
+                        "loading" => "lazy",
+                        "class" => "image-contain",
+                    ]); ?>
+                    <figcaption class="sr-only"><?php echo wp_get_attachment_caption($certificate["certificate_image"]); ?></figcaption>
+                </figure>
+            </div>
+            <div class="mt-5">
+                <?php echo $certificate["lower_description"] ?>
+            </div>
+            <hr class="border-primary md:mt-10 mt-5 border-2">
+        </section>
+    <?php } ?>
 
     <?php
     $cohort_statistics = get_field("cohort_statistics");
@@ -264,7 +509,67 @@ get_header();
         </section>
     <?php endif; ?>
 
-    <!-- Repeat similar checks and structures for other sections -->
+
+    <?php $the_oxford_experience = get_field("the_oxford_experience"); ?>
+    <?php if (!is_null($the_oxford_experience)) { ?>
+        <section class="md:py-10 py-5">
+            <div class="md:px-44 px-5">
+                <h2 class="font-tnr md:mb-10 mb-5">
+                    <?php echo $the_oxford_experience["heading"] ?>
+                </h2>
+                <?php echo $the_oxford_experience["description"] ?>
+
+                <br>
+                <h3 class="md:mb-10 mb-5">
+                    <?php echo $the_oxford_experience["explore_the_oxford_campus"]["video_title"] ?>
+                </h3>
+                <div class="bg-gray-200 rounded-none">
+                    <figure class="cursor-pointer relative group" onclick="lazyLoadVideo('<?php echo $the_oxford_experience['explore_the_oxford_campus']['youtube_video_id'] ?>', this)">
+                        <?php echo wp_get_attachment_image($the_oxford_experience["explore_the_oxford_campus"]["video_thumbnail"], "large", false, [
+                            "loading" => "lazy",
+                            "class" => "image-video",
+                        ]); ?>
+                        <figcaption class="sr-only"><?php echo wp_get_attachment_caption($the_oxford_experience["explore_the_oxford_campus"]["video_thumbnail"]); ?></figcaption>
+
+                        <button name="play video button" aria-label="play video button" class="play-btn">
+                            <svg class="group-hover:opacity-0 ml-1 transition absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-width="1" d="m3 22l18-10L3 2z" />
+                            </svg>
+
+                            <svg class="group-hover:opacity-100 transition opacity-0 ml-1 absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-width="2" d="m3 22l18-10L3 2zm2-3l12.6-7L5 5zm2-3l7.2-4L7 8zm2-3l1.8-1L9 11z" />
+                            </svg>
+                        </button>
+                    </figure>
+                </div>
+                <h3 class="md:my-10 my-5">
+                    <?php echo $the_oxford_experience["hear_from_paul_fisher_programme_director"]["video_title"] ?>
+                </h3>
+
+                <div class="bg-gray-200 rounded-none">
+                    <figure class="cursor-pointer relative group" onclick="lazyLoadVideo('<?php echo $the_oxford_experience['hear_from_paul_fisher_programme_director']['youtube_video_id'] ?>', this)">
+                        <?php echo wp_get_attachment_image($the_oxford_experience["hear_from_paul_fisher_programme_director"]["video_thumbnail"], "large", false, [
+                            "loading" => "lazy",
+                            "class" => "image-video",
+                        ]); ?>
+                        <figcaption class="sr-only"><?php echo wp_get_attachment_caption($the_oxford_experience["hear_from_paul_fisher_programme_director"]["video_thumbnail"]); ?></figcaption>
+
+                        <button name="play video button" aria-label="play video button" class="play-btn">
+                            <svg class="group-hover:opacity-0 ml-1 transition absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-width="1" d="m3 22l18-10L3 2z" />
+                            </svg>
+
+                            <svg class="group-hover:opacity-100 transition opacity-0 ml-1 absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-width="2" d="m3 22l18-10L3 2zm2-3l12.6-7L5 5zm2-3l7.2-4L7 8zm2-3l1.8-1L9 11z" />
+                            </svg>
+                        </button>
+                    </figure>
+                </div>
+
+            </div>
+        </section>
+    <?php } ?>
+
 
     <?php
     $the_oxford_institute = get_field("the_oxford_institute");
@@ -377,8 +682,10 @@ get_header();
         </section>
     <?php endif; ?>
 
-    <?php $last_section = get_field("last_section"); ?>
-    <?php if ($last_section && !empty($last_section)) : ?>
+    <?php
+    $last_section = get_field("last_section");
+    if ($last_section && !empty($last_section)) :
+    ?>
         <figure class="w-full md:h-[400px] h-[250px] object-cover">
             <?php echo wp_get_attachment_image($last_section["main_image"], "large", false, [
                 "loading" => "lazy",
@@ -407,7 +714,7 @@ get_header();
                     </h2>
                     <?php echo wp_kses_post($last_section["refer_a_colleague"]["description"]); ?>
                     <?php if (!empty($last_section["refer_a_colleague"]["refer_and_earn"]["url"])) : ?>
-                        <a aria-label="Go to get in touch" href="<?php echo esc_url($last_section["refer_a_colleague"]["refer_and_earn"]["url"]); ?>" class="cbtn-outline"><?php echo wp_kses_post($last_section["refer_a_colleague"]["refer_and_earn"]["title"]); ?></a>
+                        <a aria-label="Go to refer and earn" href="<?php echo esc_url($last_section["refer_a_colleague"]["refer_and_earn"]["url"]); ?>" class="cbtn-outline"><?php echo wp_kses_post($last_section["refer_a_colleague"]["refer_and_earn"]["title"]); ?></a>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
