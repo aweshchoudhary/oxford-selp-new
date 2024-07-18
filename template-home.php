@@ -8,9 +8,6 @@ get_header();
     if ($hero_sec) :
     ?>
         <section>
-            <pre>
-                <?php print_r($hero_sec) ?>
-            </pre>
             <figure class="w-full md:h-full h-[400px] md:p-0 p-5">
                 <?php if (!empty($hero_sec["hero_image"])) :
                     $image = $hero_sec["hero_image"];
@@ -159,7 +156,7 @@ get_header();
                 </h2>
                 <ul class="list-none pl-0 flex flex-wrap md:gap-16 gap-5">
                     <?php foreach ($key_highlights["key_highlight_points"] as $item) : ?>
-                        <li class="flex items-center md:flex-1 flex-1 md:basis-1/3 gap-5">
+                        <li class="flex items-center md:flex-1 flex-1 md:basis-1/3 basis-full gap-5">
                             <figure class="shrink-0 md:w-[80px] w-[60px]">
                                 <?php echo !empty($item["icon"]) ? wp_get_attachment_image(
                                     $item["icon"],
@@ -513,36 +510,9 @@ get_header();
     <?php $the_oxford_experience = get_field("the_oxford_experience"); ?>
     <?php if (!is_null($the_oxford_experience)) { ?>
         <section class="md:py-10 py-5">
-            <div class="md:px-44 px-5">
-                <h2 class="font-tnr md:mb-10 mb-5">
-                    <?php echo $the_oxford_experience["heading"] ?>
-                </h2>
-                <?php echo $the_oxford_experience["description"] ?>
+            <div class="md:px-44 md:px-5">
 
-                <br>
                 <h3 class="md:mb-10 mb-5">
-                    <?php echo $the_oxford_experience["explore_the_oxford_campus"]["video_title"] ?>
-                </h3>
-                <div class="bg-gray-200 rounded-none">
-                    <figure class="cursor-pointer relative group" onclick="lazyLoadVideo('<?php echo $the_oxford_experience['explore_the_oxford_campus']['youtube_video_id'] ?>', this)">
-                        <?php echo wp_get_attachment_image($the_oxford_experience["explore_the_oxford_campus"]["video_thumbnail"], "large", false, [
-                            "loading" => "lazy",
-                            "class" => "image-video",
-                        ]); ?>
-                        <figcaption class="sr-only"><?php echo wp_get_attachment_caption($the_oxford_experience["explore_the_oxford_campus"]["video_thumbnail"]); ?></figcaption>
-
-                        <button name="play video button" aria-label="play video button" class="play-btn">
-                            <svg class="group-hover:opacity-0 ml-1 transition absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                <path fill="none" stroke="currentColor" stroke-width="1" d="m3 22l18-10L3 2z" />
-                            </svg>
-
-                            <svg class="group-hover:opacity-100 transition opacity-0 ml-1 absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                <path fill="none" stroke="currentColor" stroke-width="2" d="m3 22l18-10L3 2zm2-3l12.6-7L5 5zm2-3l7.2-4L7 8zm2-3l1.8-1L9 11z" />
-                            </svg>
-                        </button>
-                    </figure>
-                </div>
-                <h3 class="md:my-10 my-5">
                     <?php echo $the_oxford_experience["hear_from_paul_fisher_programme_director"]["video_title"] ?>
                 </h3>
 
@@ -718,6 +688,38 @@ get_header();
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
+        </section>
+
+        <section class="md:py-10 py-5">
+            <div class="md:px-44 px-5">
+                <h2 class="font-tnr md:mb-10 mb-5">
+                    <?php echo $the_oxford_experience["heading"] ?>
+                </h2>
+                <?php echo $the_oxford_experience["description"] ?>
+
+                <br>
+                <h3 class="md:mb-10 mb-5">
+                    <?php echo $the_oxford_experience["explore_the_oxford_campus"]["video_title"] ?>
+                </h3>
+                <div class="bg-gray-200 rounded-none">
+                    <figure class="cursor-pointer relative group" onclick="lazyLoadVideo('<?php echo $the_oxford_experience['explore_the_oxford_campus']['youtube_video_id'] ?>', this)">
+                        <?php echo wp_get_attachment_image($the_oxford_experience["explore_the_oxford_campus"]["video_thumbnail"], "large", false, [
+                            "loading" => "lazy",
+                            "class" => "image-video",
+                        ]); ?>
+                        <figcaption class="sr-only"><?php echo wp_get_attachment_caption($the_oxford_experience["explore_the_oxford_campus"]["video_thumbnail"]); ?></figcaption>
+
+                        <button name="play video button" aria-label="play video button" class="play-btn">
+                            <svg class="group-hover:opacity-0 ml-1 transition absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-width="1" d="m3 22l18-10L3 2z" />
+                            </svg>
+
+                            <svg class="group-hover:opacity-100 transition opacity-0 ml-1 absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-width="2" d="m3 22l18-10L3 2zm2-3l12.6-7L5 5zm2-3l7.2-4L7 8zm2-3l1.8-1L9 11z" />
+                            </svg>
+                        </button>
+                    </figure>
+                </div>
         </section>
     <?php endif; ?>
 
