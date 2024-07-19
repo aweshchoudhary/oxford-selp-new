@@ -149,7 +149,6 @@ get_header();
     if ($key_highlights) :
         $background_image_url = !empty($key_highlights["section_background_image"]) ? esc_url(wp_get_attachment_image_url($key_highlights["section_background_image"], "large", false)) : '';
     ?>
-        <pre><?php print_r($background_image_url) ?></pre>
         <section style="background: url('<?php echo $background_image_url; ?>');" class="section-bg md:px-44 md:py-10 p-5 relative bg-primary text-white">
             <div>
                 <h2 class="md:mb-20 mb-5 font-tnr">
@@ -482,7 +481,6 @@ get_header();
                         </button>
                     </figure>
                 </div>
-
             </div>
         </section>
     <?php } ?>
@@ -613,7 +611,7 @@ get_header();
 
         <section class="md:px-44 md:py-10 p-5">
             <?php if (!empty($last_section["inquire_for_your_organisation"]["title"])) : ?>
-                <div class="md:mb-10 mb-5">
+                <div class="md:space-y-10 space-y-5">
                     <h2 class="font-tnr md:mb-8 mb-5">
                         <?php echo wp_kses_post($last_section["inquire_for_your_organisation"]["title"]); ?>
                     </h2>
@@ -639,6 +637,7 @@ get_header();
 
         <section class="md:py-10 py-5">
             <div class="md:px-44 px-5">
+                <hr class="border-primary border mt-0 md:mb-10 mb-5" />
                 <h2 class="font-tnr md:mb-10 mb-5">
                     <?php echo $the_oxford_experience["heading"] ?>
                 </h2>

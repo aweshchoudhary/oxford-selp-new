@@ -242,7 +242,11 @@
 }
 
 .emi-form-india-message {
-  @apply space-y-5 my-5 !important;
+  @apply space-y-5 my-5 w-full !important;
+}
+
+.table-container {
+  @apply w-full overflow-x-auto !important;
 }
 
 .mesg-list, div.wpforms-container-full .wpforms-form .wpforms-field-html ul {
