@@ -86,7 +86,7 @@ get_header();
                             <p class="mb-0 md:text-2xl text-lg font-bold"><?php echo wp_kses_post($item["title"]); ?></p>
 
                             <?php if (!empty($item["modal"]["modal_name"])) : ?>
-                                <button name="show more details" aria-label="Show more details" class="mt-1 block underline" onclick="<?php echo esc_attr($item["modal"]["modal_name"]); ?>.showModal()"><?php echo wp_kses_post($item["modal"]["title"]); ?></button>
+                                <button name="show more details" aria-label="Show more details" class="mt-1 block underline text-left" onclick="<?php echo esc_attr($item["modal"]["modal_name"]); ?>.showModal()"><?php echo wp_kses_post($item["modal"]["title"]); ?></button>
                             <?php endif; ?>
                         </div>
                     </li>
@@ -147,9 +147,10 @@ get_header();
     <?php
     $key_highlights = get_field("key_highlights");
     if ($key_highlights) :
-        $background_image_url = !empty($key_highlights["section_background_image"]) ? esc_url(wp_get_attachment_image_url($key_highlights["section_background_image"], "large")) : '';
+        $background_image_url = !empty($key_highlights["section_background_image"]) ? esc_url(wp_get_attachment_image_url($key_highlights["section_background_image"], "large", false)) : '';
     ?>
-        <section style="background: url('<?php echo $background_image_url; ?>'); background-position: center; background-repeat: no-repeat; background-size: cover;" class="md:px-44 bg-center bg-no-repeat md:py-10 p-5 relative bg-primary text-white">
+        <pre><?php print_r($background_image_url) ?></pre>
+        <section style="background: url('<?php echo $background_image_url; ?>');" class="section-bg md:px-44 md:py-10 p-5 relative bg-primary text-white">
             <div>
                 <h2 class="md:mb-20 mb-5 font-tnr">
                     <?php echo !empty($key_highlights["section_title"]) ? wp_kses_post($key_highlights["section_title"]) : ''; ?>
@@ -305,7 +306,7 @@ get_header();
                                     <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
                                         <?php echo wp_get_attachment_image($image_id, "medium", false, array(
                                             "loading" => "lazy",
-                                            "class" => "image-cover",
+                                            "class" => "image-cover lozad",
                                         )); ?>
                                         <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($image_id)); ?></figcaption>
                                     </figure>
@@ -336,55 +337,48 @@ get_header();
             </div>
             <div class="relative">
 
-                <button name="slide previous" aria-label="slide previous" class="global-experts-slick-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
-                        <g transform="translate(608 0) scale(-1 1)">
-                            <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
-                        </g>
-                    </svg></button>
+                <?php if (count($experts["slider"]) > 3) { ?>
+                    <button name="slide previous" aria-label="slide previous" class="global-experts-slick-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                            <g transform="translate(608 0) scale(-1 1)">
+                                <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
+                            </g>
+                        </svg></button>
 
-                <button name="slide next" aria-label="slide next" class="global-experts-slick-next md:right-32 right-2 slick-btn"><svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
-                        <g transform="translate(608 0) scale(-1 1)">
-                            <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
-                        </g>
-                    </svg></button>
+                    <button name="slide next" aria-label="slide next" class="global-experts-slick-next md:right-32 right-2 slick-btn"><svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                            <g transform="translate(608 0) scale(-1 1)">
+                                <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
+                            </g>
+                        </svg></button>
+                <?php } ?>
 
-                <div class="slick-slider-global-experts h-full md:px-44 px-5 relative z-0">
-                    <?php foreach ($experts["slider"] as $item) { ?>
+                <div class="slick-slider-global-experts md:px-44 px-5 relative z-0">
+                    <?php foreach ($experts["slider"] as $item) : ?>
                         <div>
                             <div class="p-6 text-center h-full">
-                                <figure onclick="<?php echo str_replace(' ', '_', $item["title"]) ?>.showModal()" class="aspect-square w-full overflow-hidden group cursor-pointer">
+                                <figure onclick="<?php echo str_replace(' ', '_', $item["title"]); ?>.showModal()" class="aspect-square w-full overflow-hidden group cursor-pointer">
                                     <?php $image_id = $item["profile_image"]; ?>
-
                                     <?php echo wp_get_attachment_image($image_id, "medium", false, array(
                                         "loading" => "lazy",
                                         "class" => "image-cover",
                                     )); ?>
-
-                                    <figcaption class="sr-only"><?php echo wp_get_attachment_caption($image_id); ?></figcaption>
+                                    <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($image_id)); ?></figcaption>
                                 </figure>
-                                <p class="md:text-xl text-lg font-semibold mt-3 mb-0"><?php echo $item["title"] ?></p>
-                                <p class="mb-2 text-left"><?php echo $item["subtitle"] ?></p>
+                                <p class="md:text-xl text-lg font-semibold mt-3 mb-0"><?php echo wp_kses_post($item["title"]); ?></p>
+                                <p class="mb-2 text-left"><?php echo wp_kses_post($item["subtitle"]); ?></p>
                             </div>
-                            <dialog id="<?php echo str_replace(' ', '_', $item["title"]) ?>" class="modal">
+                            <dialog id="<?php echo str_replace(' ', '_', $item["title"]); ?>" class="modal">
                                 <div style="border-radius: 0 !important;" class="modal-box flex gap-10 md:flex-row flex-col rounded-none md:p-10 p-5 md:max-w-[60%]">
                                     <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
                                         <?php echo wp_get_attachment_image($image_id, "medium", false, array(
                                             "loading" => "lazy",
-                                            "class" => "image-cover",
+                                            "class" => "image-cover lozad",
                                         )); ?>
-                                        <figcaption class="sr-only"><?php echo wp_get_attachment_caption($image_id); ?></figcaption>
+                                        <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($image_id)); ?></figcaption>
                                     </figure>
-
                                     <div>
-                                        <h3>
-                                            <?php echo $item["title"] ?>
-                                        </h3>
-                                        <h4 class="mb-4">
-                                            <?php echo $item["subtitle"] ?>
-                                        </h4>
-                                        <div>
-                                            <?php echo $item["read_more_description"] ?>
-                                        </div>
+                                        <h3><?php echo wp_kses_post($item["title"]); ?></h3>
+                                        <h4 class="mb-4"><?php echo wp_kses_post($item["subtitle"]); ?></h4>
+                                        <div><?php echo wp_kses_post($item["read_more_description"]); ?></div>
                                     </div>
                                 </div>
                                 <form method="dialog" class="modal-backdrop">
@@ -392,53 +386,7 @@ get_header();
                                 </form>
                             </dialog>
                         </div>
-                    <?php } ?>
-                    <?php if (count($experts["slider"]) < 4) { ?>
-                        <?php foreach ($experts["slider"] as $item) { ?>
-                            <div>
-                                <div class="p-6 text-center h-full">
-                                    <figure onclick="<?php echo str_replace(' ', '_', $item["title"]) ?>.showModal()" class="aspect-square w-full overflow-hidden group cursor-pointer">
-                                        <?php $image_id = $item["profile_image"]; ?>
-
-                                        <?php echo wp_get_attachment_image($image_id, "medium", false, array(
-                                            "loading" => "lazy",
-                                            "class" => "image-cover",
-                                        )); ?>
-
-                                        <figcaption class="sr-only"><?php echo wp_get_attachment_caption($image_id); ?></figcaption>
-                                    </figure>
-                                    <p class="md:text-xl text-lg font-semibold mt-3 mb-0"><?php echo $item["title"] ?></p>
-                                    <p class="mb-2 text-left"><?php echo $item["subtitle"] ?></p>
-                                </div>
-                                <dialog id="<?php echo str_replace(' ', '_', $item["title"]) ?>" class="modal">
-                                    <div style="border-radius: 0 !important;" class="modal-box flex gap-10 md:flex-row flex-col rounded-none md:p-10 p-5 md:max-w-[60%]">
-                                        <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
-                                            <?php echo wp_get_attachment_image($image_id, "medium", false, array(
-                                                "loading" => "lazy",
-                                                "class" => "image-cover",
-                                            )); ?>
-                                            <figcaption class="sr-only"><?php echo wp_get_attachment_caption($image_id); ?></figcaption>
-                                        </figure>
-
-                                        <div>
-                                            <h3>
-                                                <?php echo $item["title"] ?>
-                                            </h3>
-                                            <h4 class="mb-4">
-                                                <?php echo $item["subtitle"] ?>
-                                            </h4>
-                                            <div>
-                                                <?php echo $item["read_more_description"] ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <form method="dialog" class="modal-backdrop">
-                                        <button>close</button>
-                                    </form>
-                                </dialog>
-                            </div>
-                        <?php } ?>
-                    <?php } ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
@@ -510,8 +458,7 @@ get_header();
     <?php $the_oxford_experience = get_field("the_oxford_experience"); ?>
     <?php if (!is_null($the_oxford_experience)) { ?>
         <section class="md:py-10 py-5">
-            <div class="md:px-44 md:px-5">
-
+            <div class="md:px-44 px-5">
                 <h3 class="md:mb-10 mb-5">
                     <?php echo $the_oxford_experience["hear_from_paul_fisher_programme_director"]["video_title"] ?>
                 </h3>

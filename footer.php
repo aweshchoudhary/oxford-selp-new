@@ -1,5 +1,5 @@
 </main>
-<footer class="md:p-20 px-5 md:py-20 py-10 bg-primary text-white flex flex-wrap gap-5">
+<footer class="md:px-44 p-5 md:py-10 bg-primary text-white flex flex-wrap gap-5">
     <div class="md:basis-1/4 basis-full flex-1 gap-5">
         <figure class="md:w-1/2 w-20">
             <?php echo wp_get_attachment_image(468, "medium", false, [

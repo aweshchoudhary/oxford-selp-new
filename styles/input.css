@@ -161,6 +161,13 @@
   @apply mb-0 text-left !important;
 }
 
+.section-bg {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+
 /* ======= */
 
 .main-form .wpforms-title {

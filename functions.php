@@ -28,7 +28,6 @@ function load_slick_carousel_scripts()
         // Enqueue jQuery
         wp_enqueue_script('jquery');
 
-        // Enqueue slick-carousel script
         wp_enqueue_script(
             'slick-js',
             'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js',
@@ -39,6 +38,7 @@ function load_slick_carousel_scripts()
 
         // Add custom inline script
         wp_add_inline_script('slick-js', "
+
             jQuery(document).ready(function($) {
                 $('.slick-slider-faculty').slick({
                     dots: false,
