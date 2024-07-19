@@ -51,8 +51,8 @@ get_header();
             </div>
         </section>
 
-        <dialog style="border-radius: 0 !important;" id="download_brochure" class="modal">
-            <div class="modal-box rounded-none md:p-10 p-5 md:max-w-[60%]">
+        <dialog id="download_brochure" class="modal">
+            <div style="border-radius: 0 !important;" class="modal-box rounded-none md:p-10 p-5 md:max-w-[60%]">
                 <h2>Get your brochure</h2>
                 <?php echo do_shortcode('[wpforms id="512"]'); ?>
             </div>
@@ -70,7 +70,7 @@ get_header();
             <ul class="list-none pl-0 flex flex-wrap gap-5 items-center justify-between">
                 <?php foreach ($program_details["list"] as $item) : ?>
                     <li class="flex items-center md:basis-1/4 flex-1 basis-full gap-5">
-                        <figure class="w-[60px] h-full">
+                        <figure class="md:w-[60px] w-[40px] h-full">
                             <?php
                             $icon = $item["icon"];
                             echo wp_get_attachment_image($icon["ID"], "large", false, array(
