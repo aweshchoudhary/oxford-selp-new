@@ -16,7 +16,8 @@
         <div class="flex items-center justify-between md:px-28 px-5 py-4 md:gap-0 gap-20">
             <a aria-label="goto home page" href="/">
                 <figure class="md:w-[180px] w-[100px]">
-                    <?php echo wp_get_attachment_image(467, "medium", false, array(
+                    <?php $image_id = get_field("main_logo", "option") ?>
+                    <?php echo wp_get_attachment_image($image_id, "medium", false, array(
                         "loading" => "eager",
                         "class" => "image-contain",
                     )); ?>
@@ -27,7 +28,8 @@
             </a>
             <a aria-label="goto home page" href="/">
                 <figure class="md:w-[120px] w-[80px]">
-                    <?php echo wp_get_attachment_image(469, "medium", false, array(
+                    <?php $image_id = get_field("secondary_logo", "option") ?>
+                    <?php echo wp_get_attachment_image($image_id, "medium", false, array(
                         "loading" => "eager",
                         "class" => "image-contain",
                     )); ?>
