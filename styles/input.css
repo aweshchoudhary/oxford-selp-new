@@ -121,6 +121,17 @@
   }
 }
 
+
+.section {
+    @apply md:px-44 md:py-14 p-5;
+}
+.section-x {
+    @apply md:px-44 px-5;
+}
+.section-y {
+    @apply md:py-14 py-5;
+}
+
 /* ====== */
 
 .image-video {

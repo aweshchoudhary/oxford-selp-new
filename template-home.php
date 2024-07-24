@@ -20,7 +20,7 @@ get_header();
                 <?php endif; ?>
             </figure>
 
-            <div class="md:px-44 md:py-10 p-5">
+            <div class="section">
                 <?php if (!empty($hero_sec["program_heading"])) : ?>
                     <h1 class="text-center font-tnr mb-5"><?php echo wp_kses_post($hero_sec["program_heading"]); ?></h1>
                 <?php endif; ?>
@@ -66,7 +66,7 @@ get_header();
     $program_details = get_field("program_details");
     if ($program_details) :
     ?>
-        <section class="md:px-44 md:py-10 py-5 px-8 bg-[#D6D3CE]">
+        <section class="section bg-[#D6D3CE]">
             <ul class="list-none pl-0 flex flex-wrap gap-5 items-center justify-between">
                 <?php foreach ($program_details["list"] as $item) : ?>
                     <li class="flex items-center md:basis-1/4 flex-1 basis-full gap-5">
@@ -109,7 +109,7 @@ get_header();
     $paul_fisher_video_section = get_field("paul_fisher_video_section");
     if ($paul_fisher_video_section) :
     ?>
-        <section class="md:px-44 md:py-10 p-5">
+        <section class="section">
             <div>
                 <?php echo !empty($paul_fisher_video_section["upper_description"]) ? wp_kses_post($paul_fisher_video_section["upper_description"]) : ''; ?>
 
@@ -149,7 +149,7 @@ get_header();
     if ($key_highlights) :
         $background_image_url = !empty($key_highlights["section_background_image"]) ? esc_url(wp_get_attachment_image_url($key_highlights["section_background_image"], "large", false)) : '';
     ?>
-        <section style="background: url('<?php echo $background_image_url; ?>');" class="section-bg md:px-44 md:py-10 p-5 relative bg-primary text-white">
+        <section style="background: url('<?php echo $background_image_url; ?>');" class="section-bg section relative bg-primary text-white">
             <div>
                 <h2 class="md:mb-20 mb-5 font-tnr">
                     <?php echo !empty($key_highlights["section_title"]) ? wp_kses_post($key_highlights["section_title"]) : ''; ?>
@@ -180,7 +180,7 @@ get_header();
     $leadership_narratives = get_field("leadership_narratives");
     if ($leadership_narratives) :
     ?>
-        <section class="md:px-44 md:py-10 p-5">
+        <section class="section">
             <div>
                 <h2 class="mb-5 font-tnr">
                     <?php echo !empty($leadership_narratives["heading_1"]) ? wp_kses_post($leadership_narratives["heading_1"]) : ''; ?>
@@ -222,7 +222,7 @@ get_header();
     <?php $programme_outcome = get_field("programme_outcome"); ?>
     <?php if ($programme_outcome) : ?>
         <section>
-            <div class="md:px-44 md:py-10 p-5">
+            <div class="section">
                 <h2 class="font-tnr">
                     <?php echo wp_kses_post($programme_outcome["section_title"]); ?>
                 </h2>
@@ -234,7 +234,7 @@ get_header();
                 ]); ?>
                 <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($programme_outcome["main_image"])); ?></figcaption>
             </figure>
-            <div class="md:px-44 md:py-10 p-5 space-y-5">
+            <div class="section space-y-5">
                 <?php echo wp_kses_post($programme_outcome["description"]); ?>
             </div>
         </section>
@@ -243,7 +243,7 @@ get_header();
     <?php $oxford_business_alumni_network = get_field("oxford_business_alumni_network"); ?>
     <?php if ($oxford_business_alumni_network) : ?>
         <section class="bg-primary text-white">
-            <div class="md:px-44 md:py-10 p-5 space-y-5">
+            <div class="section space-y-5">
                 <h2 class="font-tnr">
                     <?php echo wp_kses_post($oxford_business_alumni_network["section_title"]); ?>
                 </h2>
@@ -255,7 +255,7 @@ get_header();
                 ]); ?>
                 <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($oxford_business_alumni_network["main_image"])); ?></figcaption>
             </figure>
-            <div class="md:px-44 md:py-10 p-5 space-y-5">
+            <div class="section space-y-5">
                 <?php echo wp_kses_post($oxford_business_alumni_network["description"]); ?>
             </div>
         </section>
@@ -263,8 +263,8 @@ get_header();
 
     <?php $faculty = get_field("learn_from_world-class_faculty"); ?>
     <?php if ($faculty) : ?>
-        <section class="md:py-10 py-5 md:pb-0 pb-0">
-            <div class="md:px-44 md:mb-10 mb-5 px-5">
+        <section class="section-y md:pb-0 pb-0">
+            <div class="section-x md:mb-10 mb-5">
                 <h2 class="font-tnr">
                     <?php echo wp_kses_post($faculty["section_title"]); ?>
                 </h2>
@@ -285,7 +285,7 @@ get_header();
                     </svg>
                 </button>
 
-                <div class="slick-slider-faculty md:px-44 px-5 relative z-0">
+                <div class="slick-slider-faculty section-x relative z-0">
                     <?php foreach ($faculty["slider"] as $item) : ?>
                         <div>
                             <div class="p-6 text-center h-full">
@@ -328,14 +328,13 @@ get_header();
 
     <?php $experts = get_field("global_industry_experts"); ?>
     <?php if (!is_null($experts)) { ?>
-        <section class="md:py-10 py-5">
-            <div class="md:px-44 md:mb-10 mb-5 px-5">
+        <section class="section-y">
+            <div class="section-x md:mb-10 mb-5">
                 <h2 class="font-tnr">
                     <?php echo $experts["section_title"] ?>
                 </h2>
             </div>
             <div class="relative">
-
                 <?php if (count($experts["slider"]) > 3) { ?>
                     <button name="slide previous" aria-label="slide previous" class="global-experts-slick-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
                             <g transform="translate(608 0) scale(-1 1)">
@@ -350,7 +349,7 @@ get_header();
                         </svg></button>
                 <?php } ?>
 
-                <div class="slick-slider-global-experts md:px-44 px-5 relative z-0">
+                <div class="slick-slider-global-experts section-x relative z-0">
                     <?php foreach ($experts["slider"] as $item) : ?>
                         <div>
                             <div class="p-6 text-center h-full">
@@ -393,7 +392,7 @@ get_header();
 
     <?php $certificate = get_field("certificate"); ?>
     <?php if (!is_null($certificate)) { ?>
-        <section class="md:py-10 p-5 md:px-44">
+        <section class="section">
             <hr class="border-primary md:mb-10 mb-5 border-2">
             <div>
                 <h2 class="md:mb-10 mb-5 font-tnr"> <?php echo $certificate["section_title"] ?></h2>
@@ -418,7 +417,7 @@ get_header();
     $cohort_statistics = get_field("cohort_statistics");
     if ($cohort_statistics) :
     ?>
-        <section class="md:px-44 md:py-10 p-5">
+        <section class="section">
             <h2 class="font-tnr md:text-center md:mb-10 mb-5"><?php echo !empty($cohort_statistics["section_title"]) ? wp_kses_post($cohort_statistics["section_title"]) : ''; ?></h2>
             <div class="flex md:flex-row flex-col justify-between md:gap-10 gap-5">
                 <div class="basis-[40%]">
@@ -456,8 +455,8 @@ get_header();
 
     <?php $the_oxford_experience = get_field("the_oxford_experience"); ?>
     <?php if (!is_null($the_oxford_experience)) { ?>
-        <section class="md:py-10 py-5">
-            <div class="md:px-44 px-5">
+        <section class="section-y">
+            <div class="section-x">
                 <h3 class="md:mb-10 mb-5">
                     <?php echo $the_oxford_experience["hear_from_paul_fisher_programme_director"]["video_title"] ?>
                 </h3>
@@ -490,7 +489,7 @@ get_header();
     $the_oxford_institute = get_field("the_oxford_institute");
     if ($the_oxford_institute) :
     ?>
-        <section class="md:px-44 md:py-10 p-5">
+        <section class="section">
             <div>
                 <h2 class="mb-5 font-tnr">
                     <?php echo !empty($the_oxford_institute["heading_1"]) ? wp_kses_post($the_oxford_institute["heading_1"]) : ''; ?>
@@ -535,7 +534,7 @@ get_header();
     if ($is_the_programme_right_for_me) :
     ?>
         <section class="bg-primary text-white">
-            <div class="md:px-44 px-5 md:py-10 py-5">
+            <div class="section">
                 <?php if (!empty($is_the_programme_right_for_me["section_title"])) : ?>
                     <h2 class="font-tnr md:mb-10 mb-5">
                         <?php echo wp_kses_post($is_the_programme_right_for_me["section_title"]); ?>
@@ -562,7 +561,7 @@ get_header();
     if ($application_process && !empty($application_process)) :
     ?>
         <section>
-            <div class="md:px-44 md:py-10 p-5">
+            <div class="section">
                 <h2 class="font-tnr md:mb-10 mb-5">
                     <?php echo !empty($application_process["section_title"]) ? wp_kses_post($application_process["section_title"]) : ''; ?>
                 </h2>
@@ -609,7 +608,7 @@ get_header();
             <figcaption class="sr-only"><?php echo wp_get_attachment_caption($last_section["main_image"]); ?></figcaption>
         </figure>
 
-        <section class="md:px-44 md:py-10 p-5">
+        <section class="section">
             <?php if (!empty($last_section["inquire_for_your_organisation"]["title"])) : ?>
                 <div class="md:space-y-10 space-y-5">
                     <h2 class="font-tnr md:mb-8 mb-5">
@@ -635,8 +634,8 @@ get_header();
             <?php endif; ?>
         </section>
 
-        <section class="md:py-10 py-5">
-            <div class="md:px-44 px-5">
+        <section class="section-y">
+            <div class="section-x">
                 <hr class="border-primary border mt-0 md:mb-10 mb-5" />
                 <h2 class="font-tnr md:mb-10 mb-5">
                     <?php echo $the_oxford_experience["heading"] ?>

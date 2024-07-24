@@ -1,6 +1,6 @@
 <?php
 get_header(); ?>
-<article class="md:p-20 p-5">
+<article>
     <?php the_content(); ?>
 </article>
 <?php get_footer(); ?>
