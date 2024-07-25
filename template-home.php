@@ -335,19 +335,17 @@ get_header();
                 </h2>
             </div>
             <div class="relative">
-                <?php if (count($experts["slider"]) > 3) { ?>
-                    <button name="slide previous" aria-label="slide previous" class="global-experts-slick-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
-                            <g transform="translate(608 0) scale(-1 1)">
-                                <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
-                            </g>
-                        </svg></button>
+                <button name="slide previous" aria-label="slide previous" class="global-experts-slick-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                        <g transform="translate(608 0) scale(-1 1)">
+                            <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
+                        </g>
+                    </svg></button>
 
-                    <button name="slide next" aria-label="slide next" class="global-experts-slick-next md:right-32 right-2 slick-btn"><svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
-                            <g transform="translate(608 0) scale(-1 1)">
-                                <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
-                            </g>
-                        </svg></button>
-                <?php } ?>
+                <button name="slide next" aria-label="slide next" class="global-experts-slick-next md:right-32 right-2 slick-btn"><svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                        <g transform="translate(608 0) scale(-1 1)">
+                            <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
+                        </g>
+                    </svg></button>
 
                 <div class="slick-slider-global-experts section-x relative z-0">
                     <?php foreach ($experts["slider"] as $item) : ?>
