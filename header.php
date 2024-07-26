@@ -22,7 +22,7 @@
                         "class" => "image-contain",
                     )); ?>
                     <figcaption><?php echo wp_get_attachment_caption(
-                                    467
+                                    $image_id
                                 ); ?></figcaption>
                 </figure>
             </a>
@@ -34,11 +34,10 @@
                         "class" => "image-contain",
                     )); ?>
                     <figcaption><?php echo wp_get_attachment_caption(
-                                    469
+                                    $image_id
                                 ); ?></figcaption>
                 </figure>
             </a>
         </div>
     </header>
-
     <main>

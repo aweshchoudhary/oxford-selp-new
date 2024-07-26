@@ -94,8 +94,8 @@ get_header();
             </ul>
         </section>
 
-        <dialog style="border-radius: 0 !important;" id="emi_form_modal" class="modal">
-            <div class="modal-box rounded-none md:p-10 p-5 md:max-w-[60%]">
+        <dialog id="emi_form_modal" class="modal">
+            <div style="border-radius: 0 !important;" class="modal-box rounded-none md:p-10 p-5 md:max-w-[60%]">
                 <?php echo do_shortcode('[wpforms id="235" title="true"]'); ?>
             </div>
             <form method="dialog" class="modal-backdrop">
