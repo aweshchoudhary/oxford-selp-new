@@ -134,12 +134,12 @@ add_action('wp_enqueue_scripts', 'load_slick_carousel_scripts');
 
 
 
-function oxford_selp_enqueue_styles()
+function ross_cxo_enqueue_styles()
 {
     wp_enqueue_style("info-style", get_stylesheet_uri(), [], "1.0.0", "all");
 }
 
-add_action("wp_enqueue_scripts", "oxford_selp_enqueue_styles");
+add_action("wp_enqueue_scripts", "ross_cxo_enqueue_styles");
 
 function my_custom_funcs()
 {
