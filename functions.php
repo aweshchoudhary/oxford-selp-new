@@ -38,16 +38,12 @@ function load_slick_carousel_scripts()
 
         // Add custom inline script
         wp_add_inline_script('slick-js', "
-
             jQuery(document).ready(function($) {
-                $('.slick-slider-faculty').slick({
+                const config = {
                     dots: false,
                     arrows: false,
                     infinite: true,
                     speed: 500,
-                    autoplay: false,
-                    autoplaySpeed: 2500,
-                    adaptiveHeight: true,
                     lazyLoad: 'ondemand',
                     slidesToShow: 3,
                     slidesToScroll: 1,
@@ -62,68 +58,39 @@ function load_slick_carousel_scripts()
                             breakpoint: 600,
                             settings: {
                                 slidesToShow: 2,
-                                slidesToScroll: 1
+                                slidesToScroll: 1,
+                                adaptiveHeight: true,
                             }
                         },
                         {
                             breakpoint: 480,
                             settings: {
                                 slidesToShow: 1,
-                                slidesToScroll: 1
+                                slidesToScroll: 1,
+                                adaptiveHeight: true,
                             }
                         }
                     ]
+                };
+
+                $('.slick-slider-1').slick(config);
+
+                $('.slick-1-prev').click(function() {
+                    $('.slick-slider-1').slick('slickPrev');
                 });
 
-                $('.faculty-slick-prev').click(function() {
-                    $('.slick-slider-faculty').slick('slickPrev');
+                $('.slick-1-next').click(function() {
+                    $('.slick-slider-1').slick('slickNext');
                 });
 
-                $('.faculty-slick-next').click(function() {
-                    $('.slick-slider-faculty').slick('slickNext');
+                $('.slick-slider-2').slick(config);
+
+                $('.slick-2-prev').click(function() {
+                    $('.slick-slider-2').slick('slickPrev');
                 });
 
-                $('.slick-slider-global-experts').slick({
-                    dots: false,
-                    arrows: false,
-                    infinite: true,
-                    speed: 500,
-                    autoplay: false,
-                    autoplaySpeed: 2500,
-                    adaptiveHeight: true,
-                    lazyLoad: 'ondemand',
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    responsive: [{
-                            breakpoint: 1024,
-                            settings: {
-                                slidesToShow: 3,
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 600,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 480,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1
-                            }
-                        }
-                    ]
-                });
-
-                $('.global-experts-slick-prev').click(function() {
-                    $('.slick-slider-global-experts').slick('slickPrev');
-                });
-
-                $('.global-experts-slick-next').click(function() {
-                    $('.slick-slider-global-experts').slick('slickNext');
+                $('.slick-2-next').click(function() {
+                    $('.slick-slider-2').slick('slickNext');
                 });
             });
         ");
@@ -159,6 +126,31 @@ function my_custom_funcs()
             } else {
                 readMoreContent.style.display = 'none';
                 button.innerText = 'Read More';
+            }
+        }
+
+        function showModal(modal_id) {
+            const modal_by_id = document.getElementById(modal_id);
+            if (modal_by_id) {
+                document.querySelectorAll(".modal-custom").forEach((e) => {
+                    if (e !== modal_by_id) {
+                        e.style.display = "none";
+                    }
+                });
+
+                const modal_backdrop = modal_by_id.querySelector(".c-backdrop")
+                if (modal_backdrop) {
+                    modal_backdrop.addEventListener("click", () => {
+                        if (modal_by_id.style.display === "block") {
+                            modal_by_id.style.display = "none";
+                            document.body.style.overflowY = "auto";
+                            document.documentElement.style.overflowY = "auto";
+                        }
+                    })
+                }
+                modal_by_id.style.display = "block";
+                document.body.style.overflow = "hidden";
+                document.documentElement.style.overflow = "hidden";
             }
         }
 

@@ -33,7 +33,7 @@ get_header();
                         <a aria-label="Go to eligibility page" href="<?php echo esc_url($hero_sec["review_my_application"]["url"]); ?>" class="cbtn-outline"><?php echo wp_kses_post($hero_sec["review_my_application"]["title"]); ?></a>
                     <?php endif; ?>
                     <?php if (!empty($hero_sec["download_brochure"])) : ?>
-                        <button name="open download brochure form" aria-label="Open download brochure form" onclick="download_brochure.showModal();" class="cbtn-outline"><?php echo wp_kses_post($hero_sec["download_brochure"]["title"]); ?></button>
+                        <button name="open download brochure form" aria-label="Open download brochure form" onclick="showModal('download_brochure')" class="cbtn-outline"><?php echo wp_kses_post($hero_sec["download_brochure"]["title"]); ?></button>
                     <?php endif; ?>
                 </div>
 
@@ -51,15 +51,17 @@ get_header();
             </div>
         </section>
 
-        <dialog id="download_brochure" class="modal">
-            <div style="border-radius: 0 !important;" class="modal-box rounded-none md:p-10 p-5 md:max-w-[60%]">
+        <div id="download_brochure" class="modal-custom">
+            <div class="modal-content">
                 <h2>Get your brochure</h2>
                 <?php echo do_shortcode('[wpforms id="512"]'); ?>
             </div>
-            <form method="dialog" class="modal-backdrop">
-                <button>Close</button>
-            </form>
-        </dialog>
+            <div class="c-backdrop">
+                <button class="modal-close-btn">Close <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" />
+                    </svg></button>
+            </div>
+        </div>
     <?php endif; ?>
 
     <?php
@@ -86,7 +88,7 @@ get_header();
                             <p class="mb-0 md:text-2xl text-lg font-bold"><?php echo wp_kses_post($item["title"]); ?></p>
 
                             <?php if (!empty($item["modal"]["modal_name"])) : ?>
-                                <button name="show more details" aria-label="Show more details" class="mt-1 block underline text-left" onclick="<?php echo esc_attr($item["modal"]["modal_name"]); ?>.showModal()"><?php echo wp_kses_post($item["modal"]["title"]); ?></button>
+                                <button name="show more details" aria-label="Show more details" class="mt-1 block underline text-left" onclick="showModal(<?php echo esc_attr($item['modal']['modal_name']); ?>)"><?php echo wp_kses_post($item["modal"]["title"]); ?></button>
                             <?php endif; ?>
                         </div>
                     </li>
@@ -94,14 +96,16 @@ get_header();
             </ul>
         </section>
 
-        <dialog id="emi_form_modal" class="modal">
-            <div style="border-radius: 0 !important;" class="modal-box rounded-none md:p-10 p-5 md:max-w-[60%]">
+        <div id="emi_form_modal" class="modal-custom">
+            <div class="modal-content">
                 <?php echo do_shortcode('[wpforms id="235" title="true"]'); ?>
             </div>
-            <form method="dialog" class="modal-backdrop">
-                <button>Close</button>
-            </form>
-        </dialog>
+            <div class="c-backdrop">
+                <button class="modal-close-btn">Close <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" />
+                    </svg></button>
+            </div>
+        </div>
     <?php endif; ?>
 
 
@@ -272,23 +276,23 @@ get_header();
                 </h2>
             </div>
             <div class="relative">
-                <button name="slide previous" aria-label="slide previous" class="faculty-slick-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                <button name="slide previous" aria-label="slide previous" class="slick-1-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
                         <g transform="translate(608 0) scale(-1 1)">
                             <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
                         </g>
                     </svg></button>
 
-                <button name="slide next" aria-label="slide next" class="faculty-slick-next md:right-32 right-2 slick-btn"><svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                <button name="slide next" aria-label="slide next" class="slick-1-next md:right-32 right-2 slick-btn"><svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
                         <g transform="translate(608 0) scale(-1 1)">
                             <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
                         </g>
                     </svg></button>
 
-                <div class="slick-slider-faculty section-x relative z-0">
+                <div class="slick-slider-1 section-x relative z-0">
                     <?php foreach ($faculty["slider"] as $item) : ?>
                         <div>
                             <div class="p-6 text-center h-full">
-                                <figure onclick="<?php echo str_replace(' ', '_', $item["title"]); ?>.showModal()" class="aspect-square w-full overflow-hidden group cursor-pointer">
+                                <figure onclick="showModal('<?php echo str_replace(' ', '_', $item['title']); ?>')" class="aspect-square w-full overflow-hidden group cursor-pointer">
                                     <?php $image_id = $item["profile_image"]; ?>
                                     <?php echo wp_get_attachment_image($image_id, "medium", false, array(
                                         "loading" => "lazy",
@@ -299,29 +303,35 @@ get_header();
                                 <p class="md:text-xl text-lg font-semibold mt-3 mb-0"><?php echo wp_kses_post($item["title"]); ?></p>
                                 <p class="mb-2 text-left"><?php echo wp_kses_post($item["subtitle"]); ?></p>
                             </div>
-                            <dialog id="<?php echo str_replace(' ', '_', $item["title"]); ?>" class="modal">
-                                <div style="border-radius: 0 !important;" class="modal-box flex gap-10 md:flex-row flex-col rounded-none md:p-10 p-5 md:max-w-[60%]">
-                                    <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
-                                        <?php echo wp_get_attachment_image($image_id, "medium", false, array(
-                                            "loading" => "lazy",
-                                            "class" => "image-cover lozad",
-                                        )); ?>
-                                        <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($image_id)); ?></figcaption>
-                                    </figure>
-                                    <div>
-                                        <h3><?php echo wp_kses_post($item["title"]); ?></h3>
-                                        <h4 class="mb-4"><?php echo wp_kses_post($item["subtitle"]); ?></h4>
-                                        <div><?php echo wp_kses_post($item["read_more_description"]); ?></div>
-                                    </div>
-                                </div>
-                                <form method="dialog" class="modal-backdrop">
-                                    <button>close</button>
-                                </form>
-                            </dialog>
                         </div>
                     <?php endforeach; ?>
                 </div>
             </div>
+            <?php foreach ($faculty["slider"] as $item) : ?>
+                <div id="<?php echo str_replace(' ', '_', $item["title"]); ?>" class="modal-custom">
+                    <div class="modal-content">
+                        <div class="flex md:flex-row flex-col md:gap-10 gap-5">
+                            <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
+                                <?php echo wp_get_attachment_image($image_id, "medium", false, array(
+                                    "loading" => "lazy",
+                                    "class" => "image-cover lozad",
+                                )); ?>
+                                <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($image_id)); ?></figcaption>
+                            </figure>
+                            <div>
+                                <h3><?php echo wp_kses_post($item["title"]); ?></h3>
+                                <h4 class="mb-4"><?php echo wp_kses_post($item["subtitle"]); ?></h4>
+                                <div><?php echo wp_kses_post($item["read_more_description"]); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="c-backdrop">
+                        <button class="modal-close-btn">Close <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" />
+                            </svg></button>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </section>
     <?php } ?>
 
@@ -334,23 +344,23 @@ get_header();
                 </h2>
             </div>
             <div class="relative">
-                <button name="slide previous" aria-label="slide previous" class="global-experts-slick-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                <button name="slide previous" aria-label="slide previous" class="slick-2-prev md:left-32 left-2 slick-btn"><svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
                         <g transform="translate(608 0) scale(-1 1)">
                             <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
                         </g>
                     </svg></button>
 
-                <button name="slide next" aria-label="slide next" class="global-experts-slick-next md:right-32 right-2 slick-btn"><svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
+                <button name="slide next" aria-label="slide next" class="slick-2-next md:right-32 right-2 slick-btn"><svg xmlns="http://www.w3.org/2000/svg" width="0.48em" height="1em" viewBox="0 0 608 1280">
                         <g transform="translate(608 0) scale(-1 1)">
                             <path fill="currentColor" d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23" />
                         </g>
                     </svg></button>
 
-                <div class="slick-slider-global-experts section-x relative z-0">
+                <div class="slick-slider-2 section-x relative z-0">
                     <?php foreach ($experts["slider"] as $item) : ?>
                         <div>
                             <div class="p-6 text-center h-full">
-                                <figure onclick="<?php echo str_replace(' ', '_', $item["title"]); ?>.showModal()" class="aspect-square w-full overflow-hidden group cursor-pointer">
+                                <figure onclick="showModal('<?php echo str_replace(' ', '_', $item['title']); ?>')" class="aspect-square w-full overflow-hidden group cursor-pointer">
                                     <?php $image_id = $item["profile_image"]; ?>
                                     <?php echo wp_get_attachment_image($image_id, "medium", false, array(
                                         "loading" => "lazy",
@@ -361,29 +371,35 @@ get_header();
                                 <p class="md:text-xl text-lg font-semibold mt-3 mb-0"><?php echo wp_kses_post($item["title"]); ?></p>
                                 <p class="mb-2 text-left"><?php echo wp_kses_post($item["subtitle"]); ?></p>
                             </div>
-                            <dialog id="<?php echo str_replace(' ', '_', $item["title"]); ?>" class="modal">
-                                <div style="border-radius: 0 !important;" class="modal-box flex gap-10 md:flex-row flex-col rounded-none md:p-10 p-5 md:max-w-[60%]">
-                                    <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
-                                        <?php echo wp_get_attachment_image($image_id, "medium", false, array(
-                                            "loading" => "lazy",
-                                            "class" => "image-cover lozad",
-                                        )); ?>
-                                        <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($image_id)); ?></figcaption>
-                                    </figure>
-                                    <div>
-                                        <h3><?php echo wp_kses_post($item["title"]); ?></h3>
-                                        <h4 class="mb-4"><?php echo wp_kses_post($item["subtitle"]); ?></h4>
-                                        <div><?php echo wp_kses_post($item["read_more_description"]); ?></div>
-                                    </div>
-                                </div>
-                                <form method="dialog" class="modal-backdrop">
-                                    <button>close</button>
-                                </form>
-                            </dialog>
                         </div>
                     <?php endforeach; ?>
                 </div>
             </div>
+            <?php foreach ($experts["slider"] as $item) : ?>
+                <div id="<?php echo str_replace(' ', '_', $item["title"]); ?>" class="modal-custom">
+                    <div class="modal-content">
+                        <div class="flex md:flex-row flex-col md:gap-10 gap-5">
+                            <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
+                                <?php echo wp_get_attachment_image($image_id, "medium", false, array(
+                                    "loading" => "lazy",
+                                    "class" => "image-cover lozad",
+                                )); ?>
+                                <figcaption class="sr-only"><?php echo wp_kses_post(wp_get_attachment_caption($image_id)); ?></figcaption>
+                            </figure>
+                            <div>
+                                <h3><?php echo wp_kses_post($item["title"]); ?></h3>
+                                <h4 class="mb-4"><?php echo wp_kses_post($item["subtitle"]); ?></h4>
+                                <div><?php echo wp_kses_post($item["read_more_description"]); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="c-backdrop">
+                        <button class="modal-close-btn">Close <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" />
+                            </svg></button>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </section>
     <?php } ?>
 
