@@ -71,7 +71,7 @@ get_header();
         <section class="section bg-[#D6D3CE]">
             <ul class="list-none pl-0 flex flex-wrap gap-5 items-center justify-between">
                 <?php foreach ($program_details["list"] as $item) : ?>
-                    <li class="flex items-center md:basis-1/4 flex-1 basis-full gap-5">
+                    <li class="flex items-center lg:basis-1/4 md:basis-1/3 flex-1 basis-full gap-5">
                         <figure class="md:w-[60px] w-[40px] h-full">
                             <?php
                             $icon = $item["icon"];
@@ -88,7 +88,17 @@ get_header();
                             <p class="mb-0 md:text-2xl text-lg font-bold"><?php echo wp_kses_post($item["title"]); ?></p>
 
                             <?php if (!empty($item["modal"]["modal_name"])) : ?>
-                                <button name="show more details" aria-label="Show more details" class="mt-1 block underline text-left" onclick="showModal(<?php echo esc_attr($item['modal']['modal_name']); ?>)"><?php echo wp_kses_post($item["modal"]["title"]); ?></button>
+                                <button name="show more details" aria-label="Show more details" class="mt-1 block underline text-left" onclick="showModal('<?php echo esc_attr($item['modal']['modal_name']); ?>')"><?php echo wp_kses_post($item["modal"]["title"]); ?></button>
+                                <div id="<?php echo esc_attr($item['modal']['modal_name']); ?>" class="modal-custom">
+                                    <div class="modal-content">
+                                        <?php echo do_shortcode('[wpforms id="235" title="true"]'); ?>
+                                    </div>
+                                    <div class="c-backdrop">
+                                        <button class="modal-close-btn">Close <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                <path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" />
+                                            </svg></button>
+                                    </div>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </li>
@@ -96,16 +106,7 @@ get_header();
             </ul>
         </section>
 
-        <div id="emi_form_modal" class="modal-custom">
-            <div class="modal-content">
-                <?php echo do_shortcode('[wpforms id="235" title="true"]'); ?>
-            </div>
-            <div class="c-backdrop">
-                <button class="modal-close-btn">Close <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" />
-                    </svg></button>
-            </div>
-        </div>
+
     <?php endif; ?>
 
 

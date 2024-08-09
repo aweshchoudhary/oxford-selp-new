@@ -123,10 +123,10 @@
 
 
 .section {
-    @apply md:px-44 md:py-14 p-5;
+    @apply lg:px-44 md:px-24 sm:px-20 md:py-14 p-5;
 }
 .section-x {
-    @apply md:px-44 px-5;
+    @apply lg:px-44 md:px-24 sm:px-20 px-5;
 }
 .section-y {
     @apply md:py-14 py-5;
