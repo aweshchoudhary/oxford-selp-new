@@ -182,7 +182,7 @@
 .wpforms-submit,
 .wpforms-page-button,
 .wpforms-page-next {
-  @apply block w-fit h-fit text-center hover:text-white/90 rounded-none font-normal hover:bg-primary/95 px-6 py-5 border border-primary bg-primary text-white  mt-5 !important;
+  @apply block w-fit h-fit text-center hover:text-white/90 rounded-none font-normal hover:bg-primary/95 px-6 py-3 border border-primary bg-primary text-white  mt-5 !important;
 }
 
 .cbtn-outline {

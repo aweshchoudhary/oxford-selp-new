@@ -311,6 +311,7 @@ get_header();
                 <div id="<?php echo str_replace(' ', '_', $item["title"]); ?>" class="modal-custom">
                     <div class="modal-content">
                         <div class="flex md:flex-row flex-col md:gap-10 gap-5">
+                            <?php $image_id = $item["profile_image"]; ?>
                             <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
                                 <?php echo wp_get_attachment_image($image_id, "medium", false, array(
                                     "loading" => "lazy",
@@ -379,6 +380,7 @@ get_header();
                 <div id="<?php echo str_replace(' ', '_', $item["title"]); ?>" class="modal-custom">
                     <div class="modal-content">
                         <div class="flex md:flex-row flex-col md:gap-10 gap-5">
+                            <?php $image_id = $item["profile_image"]; ?>
                             <figure class="shrink-0 md:w-1/3 w-full h-full aspect-square">
                                 <?php echo wp_get_attachment_image($image_id, "medium", false, array(
                                     "loading" => "lazy",
